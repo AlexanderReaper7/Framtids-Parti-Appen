@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartiAppen", "PartiAppen\PartiAppen.csproj", "{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}.Debug|x86.ActiveCfg = Debug|x86
+		{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}.Debug|x86.Build.0 = Debug|x86
+		{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}.Release|x86.ActiveCfg = Release|x86
+		{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F5D4E7F-A295-4663-9782-8D6E2EFE467A}
+	EndGlobalSection
+EndGlobal
