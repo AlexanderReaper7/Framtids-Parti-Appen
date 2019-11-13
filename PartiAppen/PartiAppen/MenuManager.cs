@@ -81,9 +81,9 @@ namespace PartiAppen
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // circle around logo
-            int circleSize = (circle.Height + circle.Width)/2;
-            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(720/2), (int)((logoRect.Location.Y + logoRect.Height)/2) + 0), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize/2)));
-
+            int circleSize = 586 + 90;
+            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(720/2), (int)((logoRect.Location.Y + logoRect.Height)/2) + 0), new Point(circleSize)), logoBlue, 0f, new Vector2(408)));
+            
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt Program", "Om Oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             /*
@@ -99,9 +99,9 @@ namespace PartiAppen
                 + "andra länder kan nyttja.", Color.Black);
                 */
 
-            menu.Pages[(int)Menues.Menu].AddText(menuFont, new Vector2(720 / 2, 560), true, "Mer säker och klimatsmart kärnkraft!", Color.Black);
+            menu.Pages[(int)Menues.Menu].AddText(menuFont, new Vector2(720 / 2, 610), true, "Mer säker och klimatsmart kärnkraft!", Color.Black);
 
-            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(30, 630), false, 
+            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(30, 660), false, 
                 "Stamceller, gmo, odlat kött och minskade utsläpp. Sverige ska bidra till " + System.Environment.NewLine
                 + "förbättringen av den internationella miljön genom att innovera inom " + System.Environment.NewLine
                 + "dessa områden. För att uppnå detta så ska vi investera i forskning " + System.Environment.NewLine
@@ -260,7 +260,7 @@ namespace PartiAppen
         private void SetMenuState(Menues newState) { State = newState; }
 
         private int mouseScroll = 0, previousMouseScroll = 0;
-        private const float scrollMultiplier = 0.6f, rotationMultiplier = 1f;
+        private const float scrollMultiplier = 0.6f, rotationMultiplier = 0.2f;
         private DateTime prevTime = DateTime.Now, time = DateTime.Now;
 
         public void Update()
@@ -275,6 +275,10 @@ namespace PartiAppen
             prevTime = time;
             time = DateTime.Now;
             float deltaTime = (float)(time - prevTime).TotalSeconds;
+
+            TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+
+            Color logoBlue = new Color(24, 20, 111), logoYellow = new Color(252,214,3);
             // Menu specific logic
             switch (State)
             {
@@ -283,17 +287,15 @@ namespace PartiAppen
                     Game1.camera.Position = Vector2.Zero;
                     // Rotate circle thing
                     menu.Pages[0].AdvancedImages[0].rotation += deltaTime * rotationMultiplier;
-                    
+                    // Remove this line to disable color shifting
+                    menu.Pages[0].AdvancedImages[0].tint = Color.Lerp(logoBlue, logoYellow, (float)((Math.Sin(t.TotalSeconds * 2) + 1) / 2));
                     break;
                 case Menues.Program:
-                    // move camera
-                    if (Game1.camera.Position.Y < -100)
-                    {
-                        scrollReturn++;
-                    }
-                    else if (Game1.camera.Position.Y < 0)
-                        scrollReturn = 2;
+                    if (Game1.camera.Position.Y < -100) scrollReturn++;
+                    else if (Game1.camera.Position.Y < 0) scrollReturn = 2;
                     else scrollReturn = 0;
+
+                    // move camera
                     Game1.camera.Position = new Vector2(Game1.camera.Position.X, MathHelper.Clamp(Game1.camera.Position.Y + scrollReturn + (deltaScroll * scrollMultiplier), -200, 1000) );
                     break;
                 case Menues.OmOss:
