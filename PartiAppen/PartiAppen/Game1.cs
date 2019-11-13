@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Tools_XNA_dotNET_Framework;
 
 namespace PartiAppen
 {
@@ -28,6 +29,8 @@ namespace PartiAppen
         {
             // Set to borderless window
             Window.IsBorderless = true;
+            // Set window title
+            Window.Title = "Framtids Parti Appen";
             // Show mouse
             IsMouseVisible = true;
             // Enable multisampling

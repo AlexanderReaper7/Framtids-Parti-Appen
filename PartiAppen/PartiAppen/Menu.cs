@@ -65,6 +65,7 @@ namespace PartiAppen
         }
 
         // Easy navigation of buttons and button states, takes in an input of up, down, left and right
+        /*
         public void Navigation(bool up, bool down, bool left, bool right)
         {
             if (up)
@@ -88,6 +89,7 @@ namespace PartiAppen
                 Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectRight(false);
             }
         }
+        */
 
         // Update mouse collision with all buttons
         public void UpdateMouse(Rectangle mousePointer)
