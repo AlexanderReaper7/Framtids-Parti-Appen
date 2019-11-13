@@ -92,7 +92,7 @@ namespace PartiAppen
             #region Program
 
             // Variable to change where the text is.
-            int yOffSet = 300;
+            int yOffSet = 360;
 
             //menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false, "", Color.Black);
             
@@ -103,14 +103,14 @@ namespace PartiAppen
             // Klimat
             menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Klimat", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 50), false,
                 "Vi tror på en säker och energieffektiv framtid. Med nya teknologier " + System.Environment.NewLine
                 + "kan vi utvinna energi från jord. Vi vill forska och utveckla detta " + System.Environment.NewLine
                 + "område för säkrare och billigare elproduktion. ", Color.Black);
             // sub Kärnkraft
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 100), false, "Kärnkraft", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 160), false, "Kärnkraft", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 140), false,
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 200), false,
                 "Kärnkraft extremt energieffektivt och har liten klimatpåverkan med en " + System.Environment.NewLine
                 + "extremt liten chans för katastrof. Sverige får idag 40% av sin " + System.Environment.NewLine
                 + "energi från kärnkraft vi vill expandera det till 50% under de närmaste " + System.Environment.NewLine
@@ -119,10 +119,14 @@ namespace PartiAppen
                 + "är effektivt men för dyrt för att vara effektivt att expandera och " + System.Environment.NewLine
                 + "9% värmekraft som kommer från energin vi får av att återanvända sopor.", Color.Black);
             // sub Forskning
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Forskning", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 400), false, "Forskning", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Med dagens teknologi så klarar jorden inte mer än 8 miljarder människor och vi är på en bana mot 10 miljarder där det kommer stanna in. För att lösa detta så krävs det att vi inoverar och kommer på nya mer miljövänliga lösningar. Vilket kräver bättre utbildning och mer pengar investerat på forskning.", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 440), false,
+                "Med dagens teknologi så klarar jorden inte mer än 8 miljarder människor " + System.Environment.NewLine
+                + "och vi är på en bana mot 10 miljarder där det kommer stanna in. " + System.Environment.NewLine
+                + "För att lösa detta så krävs det att vi inoverar och kommer på " + System.Environment.NewLine
+                + "nya mer miljövänliga lösningar. Vilket kräver bättre utbildning och " + System.Environment.NewLine
+                + "mer pengar investerat på forskning.", Color.Black);
 
 
             // Skolan
