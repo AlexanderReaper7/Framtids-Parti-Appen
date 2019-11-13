@@ -64,7 +64,7 @@ namespace PartiAppen
             for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
             {
                 // Icon TODO: change rectangle
-                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(20), new Point(80)), () => SetMenuState(Menues.Menu)));
+                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(720/2 - 80/2 - 5, 1080-80-40), new Point(80)), () => SetMenuState(Menues.Menu)));
             }
 
             #endregion
