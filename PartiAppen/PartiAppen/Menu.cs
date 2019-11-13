@@ -46,25 +46,6 @@ namespace PartiAppen
 
         }
 
-        // State bool, when used, it checks if your current selection is on the same page and button and it's state, it is to make it easier to write what each button state shall do in another class
-        public bool State(int page, int button, int state)
-        {
-            if (PageSelection == page)
-            {
-                if (Pages[page].ButtonSelection == button)
-                {
-                    if (Pages[page].Buttons[button].StateSelection == state)
-                    {
-                        return true;
-                    }
-                }
-
-            }
-
-            return false;
-
-        }
-
         // Easy navigation of buttons and button states, takes in an input of up, down, left and right
         /*
         public void Navigation(bool up, bool down, bool left, bool right)
@@ -149,32 +130,17 @@ namespace PartiAppen
         }
 
         // Add a button with no switching state, takes in font, position and text
-        public void AddButton_Single(SpriteFont font, Vector2 position, string text)
+        public void AddButton_Single(Button button)
         {
-            Buttons.Add(new Button(font, position, text));
-        }
-
-        // Add a button with a switching state, takes in font, position and an array of text (each string in the array represent a state)
-        public void AddButton_Multi(SpriteFont font, Vector2 position, string[] text)
-        {
-            Buttons.Add(new Button(font, position, text));
+            Buttons.Add(button);
         }
 
         // Add multiple buttons with no switching state, takes in font, position, the spacing between texts, and an array of text (each string in the array represent a state)
-        public void AddButtonList_Single(SpriteFont font, Vector2 startPosition, float spacing, string[] texts)
+        public void AddButtonList_Single(SpriteFont font, Rectangle rectangle, float spacing, string[] texts, Vector2 textPadding, Color color, Color highlightedColor)
         {
             for (int i = 0; i < texts.Length; i++)
             {
-                Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i*spacing), texts[i]));                
-            }
-        }
-
-        // Add multiple buttons with a switching state, takes in font, position, the spacing between texts, and a list of an array of text (each string in the array represent a state, each array represent a button)
-        public void AddButtonList_Multi(SpriteFont font, Vector2 startPosition, float spacing, List<string[]> texts)
-        {
-            for (int i = 0; i < texts.Count; i++)
-            {
-                Buttons.Add(new Button(font, new Vector2(startPosition.X, startPosition.Y + i * spacing), texts[i]));
+                Buttons.Add(new Button(font, new Rectangle(rectangle.X, (int)(rectangle.Y + i*spacing), rectangle.Width, rectangle.Height), texts[i], textPadding, color, highlightedColor));                
             }
         }
 
