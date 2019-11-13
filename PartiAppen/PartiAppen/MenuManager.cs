@@ -44,6 +44,7 @@ namespace PartiAppen
         {
             // Fonts
             SpriteFont menuFont = content.Load<SpriteFont>(@"Fonts/Main");
+            SpriteFont subFont = content.Load<SpriteFont>(@"Fonts/Sub");
             SpriteFont textFont = content.Load<SpriteFont>(@"Fonts/Text");
 
             // Color theme
@@ -63,7 +64,7 @@ namespace PartiAppen
             for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
             {
                 // Icon TODO: change rectangle
-                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(720/2 - 80/2 - 5, 1080-80-40), new Point(80)), () => SetMenuState(Menues.Menu)));
+                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(30), new Point(80)), () => SetMenuState(Menues.Menu)));
             }
 
             #endregion
@@ -74,7 +75,8 @@ namespace PartiAppen
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, backColor, highLightColor, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             
-            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(20, 540 + 20), false, "Våran sikt är att människan är en gruppvarelse därmed ska samhället " + System.Environment.NewLine
+            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(20, 540 + 20), false, 
+                "Våran sikt är att människan är en gruppvarelse därmed ska samhället " + System.Environment.NewLine
                 + "samarbeta för att upplyfta alla människor, sverige ska vara världsledare " + System.Environment.NewLine
                 + "som andra länder kan se upp till och ta efter. För att bli världsledare krävs " + System.Environment.NewLine
                 + "det att sverige investerar i sin framtid, genom forskning och utbildning. " + System.Environment.NewLine + System.Environment.NewLine 
@@ -86,7 +88,70 @@ namespace PartiAppen
             #endregion
 
             #region Program
+
+            // Variable to change where the text is.
+            int yOffSet = 300;
+
+            //menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false, "", Color.Black);
+            
+            // Buttons for shortcut
             menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Vad tycker vi om X?", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
+
+
+            // Klimat
+            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Klimat", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Vi tror på en säker och energieffektiv framtid. Med nya teknologier " + System.Environment.NewLine
+                + "kan vi utvinna energi från jord. Vi vill forska och utveckla detta " + System.Environment.NewLine
+                + "område för säkrare och billigare elproduktion. ", Color.Black);
+            // sub Kärnkraft
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 100), false, "Kärnkraft", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 140), false,
+                "Kärnkraft extremt energieffektivt och har liten klimatpåverkan med en " + System.Environment.NewLine
+                + "extremt liten chans för katastrof. Sverige får idag 40% av sin " + System.Environment.NewLine
+                + "energi från kärnkraft vi vill expandera det till 50% under de närmaste " + System.Environment.NewLine
+                + "20 åren när vindkraftverken som utgör 10% av vår energi går sönder och " + System.Environment.NewLine
+                + "behöves ersättas. Dem sista 50% procenten består av 41% vatten som " + System.Environment.NewLine
+                + "är effektivt men för dyrt för att vara effektivt att expandera och " + System.Environment.NewLine
+                + "9% värmekraft som kommer från energin vi får av att återanvända sopor.", Color.Black);
+            // sub Forskning
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Forskning", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Med dagens teknologi så klarar jorden inte mer än 8 miljarder människor och vi är på en bana mot 10 miljarder där det kommer stanna in. För att lösa detta så krävs det att vi inoverar och kommer på nya mer miljövänliga lösningar. Vilket kräver bättre utbildning och mer pengar investerat på forskning.", Color.Black);
+
+
+            // Skolan
+            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Skolan", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Skolan är verktyget som formar samhället, detta ska våra stadgar reflektera genom att fortsätta erbjuda gratis skolgång och uppmuntra till en högre utbildning på högskole- eller universitetsnivå. Detta är en viktig pelare i demokratin, en välutbildad befolkning fattar bättre beslut.", Color.Black);
+            // sub Friskolan
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Friskolan", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Vi som parti är för friskolor för det skapar konkurrens vilket leder till bättre tjänster. Staten ska dock styra kunskapskraven samt leda inspektioner av skolorna för att säkerställa att friskolorna uppnår kraven som sätts på dem.", Color.Black);
+            // sub Lärarbrist
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Lärarbrist", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Läraryrket har under lång tid förlorat mer och mer status på grund av lägre löner och lägre krav för att människor utan lärarutbildning ska kunna få yrket. Detta har lett till att fler och fler utbildar sig till andra yrken vilket har lett till en brist på 60,000 lärare. Till att börja med vill vi öka lärarlöner så att fler ska vilja få jobbet för att låg lön är en motivation mot att inte bli lärare. Ett annat problem för lärare är alla jobb vid sidan av undervisningen dem behöver göra. Vi vill fokusera på att anställa människor som kan göra dem jobben så lärarna inte behöver det.", Color.Black);
+
+            // Ekonomi
+            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Ekonomi", Color.Black);
+            // sub Skatt
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Skatt", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Det nuvarande systemet har visat att fungera. Vi tycker att skatten skall vara balanserad som vi anser att den är just nu. Därmed vill vi behålla skattesystemet och fokusera på att finjustera våra resurstillgångar med att investera dem på ett korrekt sätt.", Color.Black);
+            // sub Bidrag
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Bidrag", Color.Black);
+
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
+                "Vi tror på forskning och därför vill vi ge större summa pengar till alla Sveriges fantastiska universitet. Vi skall lägga ytterligare 20 miljarder kronor på forskningsmedel och stöd för universitet. Bidragen kommer vara mer inriktad mot energiforskning. Genom dessa bidrag så skall vi uppfylla vår profilfråga!", Color.Black);
+
             #endregion
 
             #region OmOss
