@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartiAppen", "PartiAppen\PartiAppen.csproj", "{42AFD244-F872-4D2B-9E61-2EEC3631A6AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools_XNA_dotNET_Framework", "..\..\..\Resources\GymnasieArbeteNedladdningar\Alexander_Tools-master\Alexander_Tools-master\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework.csproj", "{268B980E-2C5D-4F8F-A578-18FFDF6FB1BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools_XNA_dotNET_Framework", "..\..\Alexander_Tools\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework.csproj", "{268B980E-2C5D-4F8F-A578-18FFDF6FB1BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
