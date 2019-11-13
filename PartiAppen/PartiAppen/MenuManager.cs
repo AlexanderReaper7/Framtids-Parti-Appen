@@ -64,8 +64,6 @@ namespace PartiAppen
         {
 
 
-
-
             menu.Update();
 
             #region Menu
