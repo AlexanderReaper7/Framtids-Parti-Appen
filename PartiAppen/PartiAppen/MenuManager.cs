@@ -68,40 +68,19 @@ namespace PartiAppen
 
             #region Menu
 
+            // switch menu when left mouse button is pressed
             if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
             {
-
-                // Check if player select first button in main menu (play)
-                if (menu.State(0, 0))
+                for (int i = 0; i < Enum.GetNames(typeof(Menues)).Length; i++)
                 {
-                    // Change page to Program screen
-                    menu.PageSelection = 1;
-                }
+                    // Check if player select first button in main menu (play)
+                    if (menu.State(0, i))
+                    {
+                        // Change page to Program screen
+                        menu.PageSelection = i+1;
+                    }
 
-                // Highscore
-                if (menu.State(0, 1))
-                {
-                    menu.PageSelection = 2;
                 }
-
-                // Options
-                if (menu.State(0, 2))
-                {
-                    menu.PageSelection = 3;
-                }
-
-                // How to play
-                if (menu.State(0, 3))
-                {
-                    menu.PageSelection = 4;
-                }
-
-                // Credits
-                if (menu.State(0, 4))
-                {
-                    menu.PageSelection = 5;
-                }
-                
 
                 // Make single activation press reset
                 mouseNotPressed = false;
@@ -110,8 +89,7 @@ namespace PartiAppen
             #endregion
 
 
-            if (MouseState.LeftButton == ButtonState.Pressed)
-                mouseNotPressed = true;
+            mouseNotPressed = MouseState.LeftButton != ButtonState.Pressed;
         }
 
         public void Draw(SpriteBatch spriteBatch)

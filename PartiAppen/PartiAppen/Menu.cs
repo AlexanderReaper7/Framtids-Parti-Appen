@@ -99,6 +99,8 @@ namespace PartiAppen
         public Texture2D Background;
         // Variable for the backgrounds transparency
         public float BackgroundTransparency;
+        // Images
+        public List<Image> Images = new List<Image>();
         // Variable that handles Texts
         public List<Line> Text = new List<Line>();
         // Variable that handles buttons
@@ -123,6 +125,11 @@ namespace PartiAppen
             BackgroundTransparency = transparency;
         }
 
+        public void AddImage(params Image[] image)
+        {
+            Images.AddRange(image);
+        }
+
         // Add a text, which font it shall have, what position, if the position is centralized (origin based), what the text is and what color
         public void AddText(SpriteFont font, Vector2 position, bool center, string newText, Color color)
         {
@@ -144,45 +151,6 @@ namespace PartiAppen
             }
         }
 
-        // Navigation method, go down (loop and get back to top when reaching the end)
-        public void SelectDown(bool loop)
-        {
-            if (loop)
-            {
-                ButtonSelection++;
-                if (ButtonSelection > Buttons.Count - 1)
-                {
-                    ButtonSelection = 0;
-                }
-            }
-            else
-            {
-                if (ButtonSelection < Buttons.Count - 1)
-                {
-                    ButtonSelection++;
-                }
-            }
-        }
-
-        // Navigation method, go up (loop and get back to bottom when reaching the beginning)
-        public void SelectUp(bool loop)
-        {
-            if (loop)
-            {
-                ButtonSelection--;
-                if (ButtonSelection < 0)
-                {
-                    ButtonSelection = Buttons.Count - 1;
-                }
-            }
-            else
-            {
-                if (ButtonSelection > 0)
-                {
-                    ButtonSelection--;
-                }
-            }
-        }
 
         // Update mouse collisions with buttons
         public void UpdateMouse(Point mousePosition)
@@ -207,7 +175,14 @@ namespace PartiAppen
             {
                 spriteBatch.Draw(Background, new Rectangle(0, 0, 1080, 720), new Color(new Vector4(BackgroundTransparency)));
             }
-            // For every button, if i is same as selection, make that button have a highlight (white instead of gray)
+
+            // Draw every image
+            foreach (Image image in Images)
+            {
+                image.Draw(spriteBatch);
+            }
+
+            // For every button, if i is same as selection, make that button have a highlight 
             for (int i = 0; i < Buttons.Count; i++)
             {
                 Buttons[i].HighLight = i == ButtonSelection;
@@ -222,6 +197,43 @@ namespace PartiAppen
             }
         }
 
+    }
+
+    public class Image
+    {
+        private Texture2D texture;
+        private Rectangle destinationRectangle;
+        private Color tint;
+
+        /// <summary>
+        /// Creates an image object with a tint
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="destinationRectangle">Position and size</param>
+        /// <param name="tint"></param>
+        public Image(Texture2D texture, Rectangle destinationRectangle, Color tint)
+        {
+            this.texture = texture;
+            this.destinationRectangle = destinationRectangle;
+            this.tint = tint;
+        }
+
+        /// <summary>
+        /// Creates an image object
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="destinationRectangle">Position and size</param>
+        public Image(Texture2D texture, Rectangle destinationRectangle)
+        {
+            this.texture = texture;
+            this.destinationRectangle = destinationRectangle;
+            tint = Color.White;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, destinationRectangle, tint);
+        }
     }
 
     // A class that simplifies a string with a font, position, if it is centered, what text and color
