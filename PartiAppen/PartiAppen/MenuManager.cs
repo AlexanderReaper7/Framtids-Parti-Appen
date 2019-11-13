@@ -105,6 +105,12 @@ namespace PartiAppen
         {
             menu.Update();
 
+            // Update mouse
+            previousMouseScroll = mouseScroll;
+            mouseScroll = Mouse.GetState().ScrollWheelValue;
+
+            int deltaScroll = previousMouseScroll - mouseScroll;
+
             // Menu specific logic
             switch (State)
             {
@@ -113,12 +119,6 @@ namespace PartiAppen
                     Game1.camera.Position = Vector2.Zero;
                     break;
                 case Menues.Program:
-                    // mouse scrolling
-                    previousMouseScroll = mouseScroll;
-                    mouseScroll = Mouse.GetState().ScrollWheelValue;
-
-                    int deltaScroll = previousMouseScroll - mouseScroll;
-
                     // move camera
                     Game1.camera.Position = new Vector2(Game1.camera.Position.X, Game1.camera.Position.Y + (deltaScroll * scrollMultiplier));
                     break;
