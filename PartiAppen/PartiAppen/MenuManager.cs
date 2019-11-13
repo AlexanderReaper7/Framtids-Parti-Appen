@@ -39,22 +39,24 @@ namespace PartiAppen
             // Fonts
             menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
 
+            // Colortheme
+            Color b = Color.LightGray, h = Color.LightBlue;
+            int headerPadding = 300;
+            Rectangle mainRec = new Rectangle(0, headerPadding, 720, 80);
+            Vector2 mainPad = new Vector2(-20);
 
             #region Menu
-            menu.Pages[(int)Menues.Menu].AddButtonList_Single(menuFont, new Vector2(60, 240), 100f, new[] { "Vårt program", "Om oss", "Press" });
+            menu.Pages[(int)Menues.Menu].AddButtonList_Single(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, mainPad, b, h);
             #endregion
 
             #region Program
-            menu.Pages[(int)Menues.Program].AddButton_Single(menuFont, new Vector2(0), "Meny");
-            menu.Pages[(int)Menues.Program].AddButtonList_Single(menuFont, new Vector2(180, 360), 100f, new[] { "Vårt program", "Vår historia", "Våra politiker", "Om oss", "Press", "Kontakt" });
+            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, mainRec, "Meny", mainPad, b, h));
             #endregion
 
             #region OmOss
-            menu.Pages[(int)Menues.OmOss].AddButtonList_Single(menuFont, new Vector2(60, 240), 100f, new[] { "Vårt program", "Vår historia", "Våra politiker", "Om oss", "Press", "Kontakt" });
             #endregion
 
             #region Press
-            menu.Pages[(int)Menues.Press].AddButtonList_Single(menuFont, new Vector2(60, 240), 100f, new[] { "Vårt program", "Vår historia", "Våra politiker", "Om oss", "Press", "Kontakt" });
             #endregion
         }
 
