@@ -78,12 +78,6 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Alexander_Tools\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework\Tools_XNA_dotNET_Framework.csproj">
-      <Project>{268b980e-2c5d-4f8f-a578-18ffdf6fb1be}</Project>
-      <Name>Tools_XNA_dotNET_Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
