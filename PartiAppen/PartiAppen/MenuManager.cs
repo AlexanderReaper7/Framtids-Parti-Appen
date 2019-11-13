@@ -59,12 +59,14 @@ namespace PartiAppen
             // BackButton is in all pages but menu
             #region BackButton
 
-            Texture2D backArrow = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_black_48dp");
+            Texture2D backArrowBlack = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_black_48dp");
+            Texture2D backArrowWhite = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_white_48dp");
+
 
             for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
             {
                 // Icon TODO: change rectangle
-                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(30), new Point(80)), () => SetMenuState(Menues.Menu)));
+                menu.Pages[i].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(30), new Point(80)),logoBlue,logoYellow , () => SetMenuState(Menues.Menu)));
             }
 
             #endregion
@@ -73,7 +75,7 @@ namespace PartiAppen
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // Buttons
-            menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, backColor, highLightColor, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
+            menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             
             menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(20, 540 + 20), false, 
                 "Våran sikt är att människan är en gruppvarelse därmed ska samhället " + System.Environment.NewLine
