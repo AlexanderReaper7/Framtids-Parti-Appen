@@ -104,3 +104,9 @@
 /processorParam:TextureFormat=Color
 /build:Images/logo.png
 
+#begin Sounds/track1.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/track1.wav
+

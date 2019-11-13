@@ -32,28 +32,15 @@ namespace PartiAppen
             }
         }
 
-
         public int MenuesAmount => Enum.GetNames(typeof(Menues)).Length;
-
 
         // Create menu pages
         Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
 
-
-        public static MouseState MouseState => Mouse.GetState();
         public static Point MousePosition => Mouse.GetState().Position;
-
-
-        public static bool ContainsMouse(Rectangle rectangle)
-        {
-            return rectangle.Contains(MousePosition);
-        }
 
         public void LoadMenu(ContentManager content)
         {
-            // Set initial state
-
-
             // Fonts
             SpriteFont menuFont = content.Load<SpriteFont>(@"Fonts/Main");
 
@@ -82,7 +69,7 @@ namespace PartiAppen
             #endregion
 
             #region Program
-            menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Meny", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
+            menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Vad tycker vi om X?", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
             #endregion
 
             #region OmOss
