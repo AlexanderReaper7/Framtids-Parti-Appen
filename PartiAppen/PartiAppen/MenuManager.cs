@@ -44,14 +44,15 @@ namespace PartiAppen
         {
             // Fonts
             SpriteFont menuFont = content.Load<SpriteFont>(@"Fonts/Main");
+            SpriteFont titleFont = content.Load<SpriteFont>(@"Fonts/Title");
             SpriteFont subFont = content.Load<SpriteFont>(@"Fonts/Sub");
             SpriteFont textFont = content.Load<SpriteFont>(@"Fonts/Text");
 
             // Color theme
             Color primary = new Color(3,169,244), primaryLight = new Color(103,218,255), primaryDark = new Color(0,122,193);
             Color backColor = primaryLight, highLightColor = primary;
-            Color logoBlue = new Color(4, 0, 91), logoYellow = new Color(252, 214, 3);
-            Rectangle mainRec = new Rectangle(0, 1080 - 80 * (MenuesAmount - 1), 720, 80);
+            Color logoBlue = new Color(24, 20, 111), logoYellow = new Color(88, 80, 161);
+            Rectangle mainRec = new Rectangle(4, 1080 - 82 * (MenuesAmount - 1), 712, 80);
             Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
             Vector2 padding = new Vector2(-20);
             Texture2D logo = content.Load<Texture2D>(@"Images/logo");
@@ -66,7 +67,7 @@ namespace PartiAppen
             for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
             {
                 // Icon TODO: change rectangle
-                menu.Pages[i].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(20, 20), new Point(80)),logoBlue,logoYellow , () => SetMenuState(Menues.Menu)));
+                menu.Pages[i].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(40), new Point(80)),logoBlue,logoYellow , () => SetMenuState(Menues.Menu)));
             }
 
             #endregion
@@ -75,8 +76,8 @@ namespace PartiAppen
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // Buttons
-            menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
-            
+            menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt Program", "Om Oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
+            /*
             menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(20, 540 + 20), false, 
                 "Våran sikt är att människan är en gruppvarelse därmed ska samhället " + System.Environment.NewLine
                 + "samarbeta för att upplyfta alla människor, sverige ska vara världsledare " + System.Environment.NewLine
@@ -87,17 +88,25 @@ namespace PartiAppen
                 + "med alla länder så är det viktigt att vi ska fortsätta vara neutrala. " + System.Environment.NewLine
                 + "Sveriges universitet ska samarbeta att utveckla teknologier som " + System.Environment.NewLine
                 + "andra länder kan nyttja.", Color.Black);
+                */
+
+            menu.Pages[(int)Menues.Menu].AddText(menuFont, new Vector2(720 / 2, 560), true, "Mer säker och klimatsmart kärnkraft!", Color.Black);
+
+            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(30, 630), false, 
+                "Stamceller, gmo, odlat kött och minskade utsläpp. Sverige ska bidra till " + System.Environment.NewLine
+                + "förbättringen av den internationella miljön genom att innovera inom " + System.Environment.NewLine
+                + "dessa områden. För att uppnå detta så ska vi investera i forskning " + System.Environment.NewLine
+                + "inom dessa områden och spendera mer pengar på forskningsmaterial, " + System.Environment.NewLine
+                + "både internationellt och hemma.", Color.Black);
             #endregion
 
             #region Program
 
             // Variable to change where the text is.
-            int yOffSet = 360;
+            int yOffSet = 160;
 
-            //menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false, "", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(titleFont, new Vector2(720/2, 80), true, "Vårt Program", Color.Black);
             
-            // Buttons for shortcut
-            menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Vad tycker vi om X?", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
 
             #region Text
 
@@ -191,6 +200,36 @@ namespace PartiAppen
             #endregion
 
             #region OmOss
+
+
+            menu.Pages[(int)Menues.OmOss].AddText(titleFont, new Vector2(720 / 2, 80), true, "Om Oss", Color.Black);
+
+            menu.Pages[(int)Menues.OmOss].AddText(menuFont, new Vector2(720 / 2, 760), true,
+                "Motto:", Color.Black);
+
+            menu.Pages[(int)Menues.OmOss].AddText(menuFont, new Vector2(720 / 2, 820), true,
+                "Satsa mer på forskning inför framtiden!", Color.Black);
+
+
+            menu.Pages[(int)Menues.OmOss].AddText(subFont, new Vector2(30, 160), false,
+                "Partiledare: Samuel Rolandson " + System.Environment.NewLine + System.Environment.NewLine
+                + "Gruppledare: Alexander Öberg " + System.Environment.NewLine + System.Environment.NewLine
+                + "Trälar: " + System.Environment.NewLine
+                + "Vidar Bratvoldsengen, " + System.Environment.NewLine
+                + "Noam Robertsson, " + System.Environment.NewLine
+                + "Sebastian Thörn, " + System.Environment.NewLine
+                + "Carl Elvheim, " + System.Environment.NewLine
+                + "Viktor Eriksson, " + System.Environment.NewLine
+                + "Aidan Bucci, " + System.Environment.NewLine
+                + "William Ekman, " + System.Environment.NewLine
+                + "Julius Fernström Roolf, " + System.Environment.NewLine
+                + "Lina Älvstrand, " + System.Environment.NewLine
+                + "Anton Gunnarsson & " + System.Environment.NewLine
+                + "Arvid Rimmerfors", Color.Black);
+
+            menu.Pages[(int)Menues.OmOss].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(720 / 2 - 45, 920), new Point(80)), logoBlue, logoYellow, () => SetMenuState(Menues.Menu)));
+
+
             #endregion
 
             #region Press
