@@ -91,10 +91,15 @@ namespace PartiAppen
         }
         */
 
-        // Update mouse collision with all buttons
-        public void UpdateMouse(Rectangle mousePointer)
+        public void Update()
         {
-            Pages[PageSelection].UpdateMouse(mousePointer);
+            UpdateMouse(MenuManager.MousePosition);
+        }
+
+        // Update mouse collision with all buttons
+        private void UpdateMouse(Point mousePosition)
+        {
+            Pages[PageSelection].UpdateMouse(mousePosition);
         }
 
         // Draw the current selected page
@@ -213,13 +218,13 @@ namespace PartiAppen
         }
 
         // Update mouse collisions with buttons
-        public void UpdateMouse(Rectangle mousePointer)
+        public void UpdateMouse(Point mousePosition)
         {
             // For every button
             for (int i = 0; i < Buttons.Count; i++)
             {
                 // Check collisions
-                if (mousePointer.Intersects(Buttons[i].HitBox))
+                if (Buttons[i].HitBox.Contains(mousePosition))
                 {
                     // The one that collides, make that one the selection
                     ButtonSelection = i;
@@ -370,6 +375,7 @@ namespace PartiAppen
         {
             // HitBox rectangle is text position & font measurement of text to length and height
             HitBox = new Rectangle((int) Position.X, (int) Position.Y, (int)Font.MeasureString(Text[StateSelection]).X, (int)Font.MeasureString(Text[StateSelection]).Y);
+            
             // Draw text (based on selection) with font and everything, if highlight is true, then úse white, else use gray
             spriteBatch.DrawString(Font, Text[StateSelection], Position, HighLight ? Color.White : Color.Gray);
         }

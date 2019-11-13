@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace PartiAppen
 {
@@ -22,9 +23,18 @@ namespace PartiAppen
             Contact
         }
 
-        Menu menu = new Menu(6);
+        // Create menu pages
+        Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
 
         public SpriteFont menuFont;
+
+        public static MouseState MouseState => Mouse.GetState();
+        public static Point MousePosition => Mouse.GetState().Position;
+
+        public static bool ContainsMouse(Rectangle rectangle)
+        {
+            return rectangle.Contains(MousePosition);
+        }
 
         public void LoadMenu(ContentManager Content)
         {
@@ -35,7 +45,7 @@ namespace PartiAppen
 
         public void Update()
         {
-
+            menu.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
