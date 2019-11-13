@@ -244,7 +244,11 @@ namespace PartiAppen
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.End();
+            spriteBatch.Begin();
             spriteBatch.Draw(texture, destinationRectangle, null, tint, rotation,origin,SpriteEffects.None, 1f);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Game1.camera.GetViewMatrix());
         }
     }
 

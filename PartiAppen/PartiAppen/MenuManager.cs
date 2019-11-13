@@ -56,7 +56,7 @@ namespace PartiAppen
             Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
             Vector2 padding = new Vector2(-20);
             Texture2D logo = content.Load<Texture2D>(@"Images/logo");
-            Texture2D circle = content.Load<Texture2D>(@"Images/loadingcircledone");
+            Texture2D circle = content.Load<Texture2D>(@"Images/newcircle");
             // BackButton is in all pages but menu
             #region BackButton
 
@@ -76,8 +76,8 @@ namespace PartiAppen
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // circle around logo
-            int circleSize = 590;
-            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(logoRect.Location.X * 1.5f), (int)(logoRect.Location.Y * 1.5f)), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize /2f)));
+            const int circleSize = 586 + (int)(86f * (586f / 816f));
+            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(logoRect.Location.X - (logoRect.Width - circleSize)), (int)(logoRect.Location.Y - (logoRect.Height - circleSize))), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize /2f)));
 
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt Program", "Om Oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
@@ -263,6 +263,7 @@ namespace PartiAppen
                 case Menues.Menu:
                     // reset camera
                     Game1.camera.Position = Vector2.Zero;
+                    // Rotate circle thing
                     menu.Pages[0].AdvancedImages[0].rotation += deltaTime * rotationMultiplier;
                     
                     break;
