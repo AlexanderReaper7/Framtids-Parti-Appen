@@ -365,7 +365,7 @@ namespace PartiAppen
             spriteBatch.DrawFilledRectangle(DestinationRectangle, IsHighlighted ? highLightedColor : color);
             
             // Draw text
-            spriteBatch.DrawString(font, text, VectorPosition, Color.Black, 0f, textPadding, Vector2.One, SpriteEffects.None, 1);
+            spriteBatch.DrawString(font, text, VectorPosition, Color.LightGray, 0f, textPadding, Vector2.One, SpriteEffects.None, 1);
         }
     }
 

@@ -34,6 +34,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Text.spritefont
 
+#begin Fonts/Title.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Title.spritefont
+
 #begin Images/1x/baseline_arrow_back_black_48dp.png
 /importer:TextureImporter
 /processor:TextureProcessor
