@@ -48,11 +48,10 @@ namespace PartiAppen
 
             // Color theme
             Color primary = new Color(3,169,244), primaryLight = new Color(103,218,255), primaryDark = new Color(0,122,193);
-            Color backColor = Color.LightGray, highLightColor = primary;
-            int headerPadding = 300;
-            //Rectangle mainRec = new Rectangle(0, 1080 - 80 * (MenuesAmount - 1), 720, 80);
-            Rectangle mainRec = new Rectangle(0, 626, 720, 80);
-            Rectangle logoRect = new Rectangle(720 / 2 - (586 / 2), 20, 586, 586);
+            Color backColor = primaryLight, highLightColor = primary;
+            Color logoBlue = new Color(4, 0, 91), logoYellow = new Color(252, 214, 3);
+            Rectangle mainRec = new Rectangle(0, 1080 - 80 * (MenuesAmount - 1), 720, 80);
+            Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
             Vector2 padding = new Vector2(-20);
             Texture2D logo = content.Load<Texture2D>(@"Images/logo");
 
@@ -71,7 +70,7 @@ namespace PartiAppen
 
             #region Menu
             // Logo
-            menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, new Rectangle(720/2 - (586 / 2), 20, 586,586)));
+            menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, backColor, highLightColor, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             
