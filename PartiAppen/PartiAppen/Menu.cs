@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Tools_XNA_dotNET_Framework;
 
 namespace PartiAppen
 {
@@ -224,7 +225,7 @@ namespace PartiAppen
             for (int i = 0; i < Buttons.Count; i++)
             {
                 // Check collisions
-                if (Buttons[i].HitBox.Contains(mousePosition))
+                if (Buttons[i].Rectangle.Contains(mousePosition))
                 {
                     // The one that collides, make that one the selection
                     ButtonSelection = i;
@@ -301,88 +302,40 @@ namespace PartiAppen
     // A class that simplifies a button with a font, position and what text
     public class Button
     {
-        public SpriteFont Font;
-        public Vector2 Position;
+        private SpriteFont font;
+        // Upper left corner of the rectangle
+        private Point Position => Rectangle.Location;
+        private Vector2 VectorPosition => Rectangle.Location.ToVector2();
         // A rectangle for checking if it intersects with mouse
-        public Rectangle HitBox;
-        public string[] Text = new string[1];
-        // A selection variable for button states
-        public int StateSelection;
+        public Rectangle Rectangle;
+        // Origin for text
+        private Vector2 textPadding;
+        private string text;
         // A bool that declares if the button shall be highlighted (different color than basic)
         public bool HighLight;
+        private Color highLightedColor;
+        private Color color;
 
-        // Constructor for multi state buttons
-        public Button(SpriteFont font, Vector2 position, string[] text)
+        // Constructor for button
+        public Button(SpriteFont font, Rectangle rectangle, string text, Vector2 textPadding, Color color, Color highLightedColor)
         {
-            Font = font;
-            Position = position;
-            Text = text;
-            StateSelection = 0;
-        }
-
-        // Constructor for single state buttons
-        public Button(SpriteFont font, Vector2 position, string text)
-        {
-            Font = font;
-            Position = position;
-            Text[0] = text;
-            StateSelection = 0;
-        }
-
-        // Navigation method, go right in button states (loop and get back to beginning when reaching the end)
-        public void SelectRight(bool loop)
-        {
-            if (loop)
-            {
-                StateSelection++;
-                if (StateSelection > Text.Length - 1)
-                {
-                    StateSelection = 0;
-                }
-            }
-            else
-            {
-                if (StateSelection < Text.Length - 1)
-                {
-                    StateSelection++;
-                }
-            }
-
-        }
-
-        // Navigation method, go left in button states (loop and get back to end when reaching the beginning)
-        public void SelectLeft(bool loop)
-        {
-            if (loop)
-            {
-                StateSelection--;
-                if (StateSelection < 0)
-                {
-                    StateSelection = Text.Length - 1;
-                }
-            }
-            else
-            {
-                if (StateSelection > 0)
-                {
-                    StateSelection--;
-                }
-            }
+            this.font = font;
+            Rectangle = rectangle;
+            this.text = text;
+            this.textPadding = textPadding;
+            this.color = color;
+            this.highLightedColor = highLightedColor;
         }
 
         // Draw
         public void Draw(SpriteBatch spriteBatch)
         {
-            // HitBox rectangle is text position & font measurement of text to length and height
-            HitBox = new Rectangle((int) Position.X, (int) Position.Y, (int)Font.MeasureString(Text[StateSelection]).X, (int)Font.MeasureString(Text[StateSelection]).Y);
+            // Rectangle rectangle is text position & font measurement of text to length and height
+            spriteBatch.DrawFilledRectangle(Rectangle, HighLight ? highLightedColor : color);
             
-            // Draw text (based on selection) with font and everything, if highlight is true, then úse white, else use gray
-            spriteBatch.DrawString(Font, Text[StateSelection], Position, HighLight ? Color.White : Color.Gray);
+            // Draw text
+            spriteBatch.DrawString(font, text, VectorPosition, Color.Black, 0f, textPadding, Vector2.One, SpriteEffects.None, 1);
         }
-
-        
-
     }
-
 
 }
