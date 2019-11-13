@@ -11,16 +11,17 @@ namespace PartiAppen
 {
     class MenuManager
     {
+        public enum Menues
+        {
+            Menu,
+            Program,
+            Politicians,
+            History,
+            About,
+            Press,
+            Contact
+        }
 
-        /*
-         * Meny      = menu.pages[0]
-         * Program   = 1
-         * Politiker = 2
-         * Historia  = 3
-         * Om Oss    = 4
-         * Press     = 5
-         * Kontakt   = 6
-         */
         Menu menu = new Menu(6);
 
         public SpriteFont menuFont;
@@ -30,7 +31,16 @@ namespace PartiAppen
             // Fonts
             menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
 
-            menu.Pages[0].AddButtonList_Single(menuFont, new Vector2(60), 100f, new[] { "Play", "Highscore", "Options", "How To Play", "Credits", "Exit" });
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
         }
     }
 }
