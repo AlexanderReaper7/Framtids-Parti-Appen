@@ -98,6 +98,9 @@ namespace PartiAppen
 
         private void SetMenuState(Menues newState) { State = newState; }
 
+        private int mouseScroll = 0, previousMouseScroll = 0;
+        private const float scrollMultiplier = 0.6f;
+
         public void Update()
         {
             menu.Update();
@@ -106,12 +109,26 @@ namespace PartiAppen
             switch (State)
             {
                 case Menues.Menu:
+                    // reset camera
+                    Game1.camera.Position = Vector2.Zero;
                     break;
                 case Menues.Program:
+                    // mouse scrolling
+                    previousMouseScroll = mouseScroll;
+                    mouseScroll = Mouse.GetState().ScrollWheelValue;
+
+                    int deltaScroll = previousMouseScroll - mouseScroll;
+
+                    // move camera
+                    Game1.camera.Position = new Vector2(Game1.camera.Position.X, Game1.camera.Position.Y + (deltaScroll * scrollMultiplier));
                     break;
                 case Menues.OmOss:
+                    // reset camera
+                    Game1.camera.Position = Vector2.Zero;
                     break;
                 case Menues.Press:
+                    // reset camera
+                    Game1.camera.Position = Vector2.Zero;
                     break;
             }
         }
