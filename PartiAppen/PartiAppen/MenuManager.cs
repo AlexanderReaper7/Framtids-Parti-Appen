@@ -43,6 +43,7 @@ namespace PartiAppen
         {
             // Fonts
             SpriteFont menuFont = content.Load<SpriteFont>(@"Fonts/Main");
+            SpriteFont textFont = content.Load<SpriteFont>(@"Fonts/Text");
 
             // Color theme
             Color backColor = Color.LightGray, highLightColor = Color.LightBlue;
@@ -66,6 +67,16 @@ namespace PartiAppen
 
             #region Menu
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, backColor, highLightColor, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
+            
+            menu.Pages[(int)Menues.Menu].AddText(textFont, new Vector2(20, 540 + 20), false, "Våran sikt är att människan är en gruppvarelse därmed ska samhället " + System.Environment.NewLine
+                + "samarbeta för att upplyfta alla människor, sverige ska vara världsledare " + System.Environment.NewLine
+                + "som andra länder kan se upp till och ta efter. För att bli världsledare krävs " + System.Environment.NewLine
+                + "det att sverige investerar i sin framtid, genom forskning och utbildning. " + System.Environment.NewLine + System.Environment.NewLine 
+                + "Världen är mer sammankopplad än någonsin och internationellt " + System.Environment.NewLine
+                + "samarbete är vägen till framtiden. För att sverige ska kunna samarbeta " + System.Environment.NewLine
+                + "med alla länder så är det viktigt att vi ska fortsätta vara neutrala. " + System.Environment.NewLine
+                + "Sveriges universitet ska samarbeta att utveckla teknologier som " + System.Environment.NewLine
+                + "andra länder kan nyttja.", Color.Black);
             #endregion
 
             #region Program
