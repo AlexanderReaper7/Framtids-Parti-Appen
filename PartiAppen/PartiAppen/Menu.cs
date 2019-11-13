@@ -231,7 +231,7 @@ namespace PartiAppen
             // If background have a texture, draw it across the screen.
             if (Background != null)
             {
-                spriteBatch.Draw(Background, new Rectangle(0, 0, Game1.screenWidth, Game1.screenHeight), new Color(new Vector4(BackgroundTransparency)));
+                spriteBatch.Draw(Background, new Rectangle(0, 0, 1080, 720), new Color(new Vector4(BackgroundTransparency)));
             }
             // For every button, if i is same as selection, make that button have a highlight (white instead of gray)
             for (int i = 0; i < Buttons.Count; i++)
