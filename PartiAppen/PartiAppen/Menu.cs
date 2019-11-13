@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Tools_XNA_dotNET_Framework;
 
 namespace PartiAppen
@@ -16,11 +17,8 @@ namespace PartiAppen
         // List for all the pages in your desired menu
         public List<Page> Pages = new List<Page>();
         // A selection variable for pages
-        public int PageSelection;
+        public int CurrentPage;
 
-        // Constructor
-        public Menu()
-        { }
         // Constructor with desired amount of pages
         public Menu(int amountOfPages)
         {
@@ -30,22 +28,6 @@ namespace PartiAppen
             }
         }
 
-        // State bool, when used, it checks if your current selection is on the same page and button, it is to make it easier to write what each button shall do in another class
-        public bool State(int page, int button)
-        {
-            if (PageSelection == page)
-            {
-                if (Pages[page].ButtonSelection == button)
-                {
-                    return true;
-                }
-                
-            }
-
-            return false;
-
-        }
-
         // Easy navigation of buttons and button states, takes in an input of up, down, left and right
         /*
         public void Navigation(bool up, bool down, bool left, bool right)
@@ -53,26 +35,28 @@ namespace PartiAppen
             if (up)
             {
                 // Make the selection go up in current page
-                Pages[PageSelection].SelectUp(false);
+                Pages[CurrentPage].SelectUp(false);
             }
             else if (down)
             {
                 // Make the selection go down in current page
-                Pages[PageSelection].SelectDown(false);
+                Pages[CurrentPage].SelectDown(false);
             }
             else if (left)
             {
                 // Make the selection change to left in current page's current button
-                Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectLeft(false);
+                Pages[CurrentPage].Buttons[Pages[CurrentPage].ButtonSelection].SelectLeft(false);
             }
             else if (right)
             {
                 // Make the selection change to right in current page's current button
-                Pages[PageSelection].Buttons[Pages[PageSelection].ButtonSelection].SelectRight(false);
+                Pages[CurrentPage].Buttons[Pages[CurrentPage].ButtonSelection].SelectRight(false);
             }
         }
         */
-
+        /// <summary>
+        /// Updates menu logic
+        /// </summary>
         public void Update()
         {
             UpdateMouse(MenuManager.MousePosition);
@@ -81,16 +65,25 @@ namespace PartiAppen
         // Update mouse collision with all buttons
         private void UpdateMouse(Point mousePosition)
         {
-            Pages[PageSelection].UpdateMouse(mousePosition);
+            Pages[CurrentPage].UpdateMouse(mousePosition);
         }
 
         // Draw the current selected page
         public void Draw(SpriteBatch spriteBatch)
         {
-            Pages[PageSelection].Draw(spriteBatch);
+            Pages[CurrentPage].Draw(spriteBatch);
         }
 
     }
+
+    public interface IButton
+    {
+        Action Action { get; set; }
+        Rectangle DestinationRectangle { get; set; }
+        bool IsHighlighted { get; set; }
+        void Draw(SpriteBatch spriteBatch);
+    }
+
 
     // A class that handles texts, background and buttons
     public class Page
@@ -104,18 +97,13 @@ namespace PartiAppen
         // Variable that handles Texts
         public List<Line> Text = new List<Line>();
         // Variable that handles buttons
-        public List<Button> Buttons = new List<Button>();
+        public List<IButton> Buttons = new List<IButton>();
+        //
         // A selection variable for buttons
-        public int ButtonSelection;
 
         // Constructor
         public Page()
         {
-        }
-        // Constructor with a list of buttons
-        public Page(List<Button> buttons)
-        {
-            Buttons = buttons;
         }
 
         // Method for adding a background to a page, insert texture and it's transparency value (in %)
@@ -137,40 +125,63 @@ namespace PartiAppen
         }
 
         // Add a button with no switching state, takes in font, position and text
-        public void AddButton_Single(Button button)
+        public void AddButton(Button button)
         {
             Buttons.Add(button);
         }
 
         // Add multiple buttons with no switching state, takes in font, position, the spacing between texts, and an array of text (each string in the array represent a state)
-        public void AddButtonList_Single(SpriteFont font, Rectangle rectangle, float spacing, string[] texts, Vector2 textPadding, Color color, Color highlightedColor)
+        public void AddButtonList(SpriteFont font, Rectangle rectangle, float spacing, string[] texts, Vector2 textPadding, Color color, Color highlightedColor, Action[] actions)
         {
             for (int i = 0; i < texts.Length; i++)
             {
-                Buttons.Add(new Button(font, new Rectangle(rectangle.X, (int)(rectangle.Y + i*spacing), rectangle.Width, rectangle.Height), texts[i], textPadding, color, highlightedColor));                
+                Buttons.Add(new Button(font, new Rectangle(rectangle.X, (int)(rectangle.Y + i*spacing), rectangle.Width, rectangle.Height), texts[i], textPadding, color, highlightedColor, actions[i]));                
             }
         }
 
-
-        // Update mouse collisions with buttons
-        public void UpdateMouse(Point mousePosition)
+        public void AddImageButton(params ImageButton[] imageButton)
         {
-            // For every button
-            for (int i = 0; i < Buttons.Count; i++)
+            Buttons.AddRange(imageButton);
+        }
+
+        public IButton GetSelectedButton(Point mousePosition)
+        {
+            foreach (IButton button in Buttons)
             {
-                // Check collisions
-                if (Buttons[i].Rectangle.Contains(mousePosition))
+                if (button.DestinationRectangle.Contains(mousePosition))
                 {
-                    // The one that collides, make that one the selection
-                    ButtonSelection = i;
+                    return button;
                 }
             }
+
+            // return null if no button is selected
+            return null;
+        }
+
+        // Update mouse collisions with buttons TODO: add depth to collision
+        public void UpdateMouse(Point mousePosition)
+        {
+            // Get selected button
+            IButton selectedButton = GetSelectedButton(mousePosition);
+
+            // highlight only the selected button
+            foreach (IButton button in Buttons)
+            {
+                button.IsHighlighted = button == selectedButton;
+            }
+
+            // if no button is selected, skip
+            if (selectedButton == null) return; 
+
+            // if mouse is down run the button´s action
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                selectedButton.Action.Invoke();
         }
 
         // Draw
         public void Draw(SpriteBatch spriteBatch)
         {
-            // If background have a texture, draw it across the screen.
+            // Draw background if it exists
             if (Background != null)
             {
                 spriteBatch.Draw(Background, new Rectangle(0, 0, 1080, 720), new Color(new Vector4(BackgroundTransparency)));
@@ -182,18 +193,16 @@ namespace PartiAppen
                 image.Draw(spriteBatch);
             }
 
-            // For every button, if i is same as selection, make that button have a highlight 
-            for (int i = 0; i < Buttons.Count; i++)
+            // Draw buttons
+            foreach (IButton button in Buttons)
             {
-                Buttons[i].HighLight = i == ButtonSelection;
-                // Draw buttons
-                Buttons[i].Draw(spriteBatch);
+                button.Draw(spriteBatch);
             }
 
-            // Draw every text in page
-            for (int i = 0; i < Text.Count; i++)
+            // Draw every text
+            foreach (Line line in Text)
             {
-                Text[i].Draw(spriteBatch);
+                line.Draw(spriteBatch);
             }
         }
 
@@ -239,38 +248,38 @@ namespace PartiAppen
     // A class that simplifies a string with a font, position, if it is centered, what text and color
     public class Line
     {
-        public SpriteFont Font;
-        public Vector2 Position;
-        public bool Center;
-        public string Text;
-        public Color Color;
+        private SpriteFont font;
+        private Vector2 position;
+        private bool center;
+        private string text;
+        private Color color;
 
         // Constructor
         public Line(SpriteFont font, Vector2 position, bool center, string text, Color color)
         {
-            Font = font;
-            Position = position;
-            Center = center;
-            Text = text;
-            Color = color;
+            this.font = font;
+            this.position = position;
+            this.center = center;
+            this.text = text;
+            this.color = color;
         }
 
         // Update a specific text
         public void UpdateLine(string text)
         {
-            Text = text;
+            this.text = text;
         }
 
         // Draw, if center then make adjustments so that position gets into origin, otherwise position is upper left corner of the string
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (Center)
+            if (center)
             {
-                spriteBatch.DrawString(Font, Text, Position - new Vector2(Font.MeasureString(Text).X/2, Font.MeasureString(Text).Y/2), Color);
+                spriteBatch.DrawString(font, text, position - new Vector2(font.MeasureString(text).X/2, font.MeasureString(text).Y/2), color);
             }
             else
             {
-                spriteBatch.DrawString(Font, Text, Position, Color);
+                spriteBatch.DrawString(font, text, position, color);
             }
             
         }
@@ -278,41 +287,94 @@ namespace PartiAppen
     }
 
     // A class that simplifies a button with a font, position and what text
-    public class Button
+    public class Button : IButton
     {
-        private SpriteFont font;
+
+        public Action Action { get; set; }
+        public Rectangle DestinationRectangle { get; set; }
+        public bool IsHighlighted { get; set; }
+
         // Upper left corner of the rectangle
-        private Point Position => Rectangle.Location;
-        private Vector2 VectorPosition => Rectangle.Location.ToVector2();
-        // A rectangle for checking if it intersects with mouse
-        public Rectangle Rectangle;
+        private Vector2 VectorPosition => DestinationRectangle.Location.ToVector2();
+
+        private SpriteFont font;
         // Origin for text
         private Vector2 textPadding;
         private string text;
-        // A bool that declares if the button shall be highlighted (different color than basic)
-        public bool HighLight;
         private Color highLightedColor;
         private Color color;
 
+
         // Constructor for button
-        public Button(SpriteFont font, Rectangle rectangle, string text, Vector2 textPadding, Color color, Color highLightedColor)
+        public Button(SpriteFont font, Rectangle destinationRectangle, string text, Vector2 textPadding, Color color, Color highLightedColor, Action action)
         {
             this.font = font;
-            Rectangle = rectangle;
+            DestinationRectangle = destinationRectangle;
             this.text = text;
             this.textPadding = textPadding;
             this.color = color;
             this.highLightedColor = highLightedColor;
+            Action = action;
         }
 
         // Draw
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Rectangle rectangle is text position & font measurement of text to length and height
-            spriteBatch.DrawFilledRectangle(Rectangle, HighLight ? highLightedColor : color);
+            // Draw background
+            spriteBatch.DrawFilledRectangle(DestinationRectangle, IsHighlighted ? highLightedColor : color);
             
             // Draw text
             spriteBatch.DrawString(font, text, VectorPosition, Color.Black, 0f, textPadding, Vector2.One, SpriteEffects.None, 1);
+        }
+    }
+
+    public class ImageButton : IButton
+    {
+        public Action Action { get; set; }
+        public Rectangle DestinationRectangle { get; set; }
+        public bool IsHighlighted { get; set; }
+
+        private Texture2D texture;
+        private Color tint;
+        private Color highlightedTint;
+
+
+        /// <summary>
+        /// Creates an image button with a tint
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="destinationRectangle">Position and size</param>
+        /// <param name="tint"></param>
+        /// <param name="highlightedTint"></param>
+        /// <param name="action"></param>
+        public ImageButton(Texture2D texture, Rectangle destinationRectangle, Color tint, Color highlightedTint, Action action)
+        {
+            this.texture = texture;
+            this.DestinationRectangle = destinationRectangle;
+            this.tint = tint;
+            this.highlightedTint = highlightedTint;
+            Action = action;
+        }
+
+        /// <summary>
+        /// Creates an image button without color
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="destinationRectangle">Position and size</param>
+        /// <param name="action"></param>
+        public ImageButton(Texture2D texture, Rectangle destinationRectangle, Action action)
+        {
+            this.texture = texture;
+            DestinationRectangle = destinationRectangle;
+            tint = Color.White;
+            highlightedTint = Color.White;
+            Action = action;
+        }
+
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, DestinationRectangle, IsHighlighted ? highlightedTint : tint);
         }
     }
 

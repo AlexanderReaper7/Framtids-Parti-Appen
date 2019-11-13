@@ -20,41 +20,69 @@ namespace PartiAppen
             Press
         }
 
-        public static Menues state = Menues.Menu;
+        private Menues state = Menues.Menu;
+
+        public Menues State
+        {
+            get => state;
+            set
+            {
+                menu.CurrentPage = (int)value;
+                state = value;
+            }
+        }
+
+
+        public int MenuesAmount => Enum.GetNames(typeof(Menues)).Length;
+
 
         // Create menu pages
         Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
 
-        public SpriteFont menuFont;
 
         public static MouseState MouseState => Mouse.GetState();
         public static Point MousePosition => Mouse.GetState().Position;
-        public static bool mouseNotPressed = true;
+
 
         public static bool ContainsMouse(Rectangle rectangle)
         {
             return rectangle.Contains(MousePosition);
         }
 
-        public void LoadMenu(ContentManager Content)
+        public void LoadMenu(ContentManager content)
         {
-            // Fonts
-            menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
+            // Set initial state
 
-            // Colortheme
-            Color b = Color.LightGray, h = Color.LightBlue;
+
+            // Fonts
+            SpriteFont menuFont = content.Load<SpriteFont>(@"Fonts/Main");
+
+            // Color theme
+            Color backColor = Color.LightGray, highLightColor = Color.LightBlue;
             int headerPadding = 300;
             Rectangle mainRec = new Rectangle(0, headerPadding, 720, 80);
-            Vector2 mainPad = new Vector2(-20);
+            Vector2 padding = new Vector2(-20);
+
+            // BackButton is in all pages but menu
+            #region BackButton
+
+            Texture2D backArrow;
+
+            backArrow = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_black_48dp");
+            for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
+            {
+                // Icon
+                menu.Pages[i].AddImageButton(new ImageButton(backArrow, new Rectangle(new Point(20), new Point(80)), () => SetMenuState(Menues.Menu)));
+            }
+
+            #endregion
 
             #region Menu
-            menu.Pages[(int)Menues.Menu].AddButtonList_Single(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, mainPad, b, h);
+            menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, backColor, highLightColor, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             #endregion
 
             #region Program
-            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Meny", mainPad, b, h));
-            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, new Rectangle(100, 200, 100, 100), "Lol", mainPad, b, h));
-
+            menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Meny", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
             #endregion
 
             #region OmOss
@@ -64,69 +92,28 @@ namespace PartiAppen
             #endregion
         }
 
+        private void SetMenuState(Menues newState) { State = newState; }
+
         public void Update()
         {
-            
-
             menu.Update();
 
-            switch (state)
+            // Menu specific logic
+            switch (State)
             {
                 case Menues.Menu:
-                    // switch menu when left mouse button is pressed
-                    if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        for (int i = 0; i < Enum.GetNames(typeof(Menues)).Length; i++)
-                        {
-                            // Check if player select first button in main menu (play)
-                            if (menu.State(0, i))
-                            {
-                                // Change page to selected screen
-                                menu.PageSelection = i + 1;
-                            }
-
-                        }
-
-
-                        // Make single activation press reset
-                        mouseNotPressed = false;
-                    }
                     break;
                 case Menues.Program:
-                    // switch menu when left mouse button is pressed
-                    if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (menu.State(1, 0))
-                        {
-                            // Change page to Menu screen
-                            menu.PageSelection = 0;
-                        }
-
-
-
-                        // Make single activation press reset
-                        mouseNotPressed = false;
-                    }
                     break;
                 case Menues.OmOss:
                     break;
                 case Menues.Press:
                     break;
             }
-            
-
-            
-        
-
-            
-
-
-            mouseNotPressed = MouseState.LeftButton == ButtonState.Released;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             menu.Draw(spriteBatch);
         }
     }

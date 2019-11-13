@@ -106,7 +106,7 @@ namespace PartiAppen
 
             menuManager.Draw(spriteBatch);
 
-            spriteBatch. End();
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
