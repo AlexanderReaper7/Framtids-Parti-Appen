@@ -61,7 +61,7 @@ namespace PartiAppen
             Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
             Vector2 padding = new Vector2(-20);
             Texture2D logo = content.Load<Texture2D>(@"Images/logo");
-            Texture2D circle = content.Load<Texture2D>(@"Images/loadingcircledone");
+            Texture2D circle = content.Load<Texture2D>(@"Images/newcircle");
             // BackButton is in all pages but menu
             #region BackButton
 
@@ -281,6 +281,7 @@ namespace PartiAppen
                 case Menues.Menu:
                     // reset camera
                     Game1.camera.Position = Vector2.Zero;
+                    // Rotate circle thing
                     menu.Pages[0].AdvancedImages[0].rotation += deltaTime * rotationMultiplier;
                     
                     break;
