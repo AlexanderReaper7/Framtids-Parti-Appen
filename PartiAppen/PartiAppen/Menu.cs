@@ -19,6 +19,9 @@ namespace PartiAppen
         // A selection variable for pages
         public int CurrentPage;
 
+        public static bool previousMouseDown = false;
+        public static bool currentMouseDown = false;
+
         // Constructor with desired amount of pages
         public Menu(int amountOfPages)
         {
@@ -59,7 +62,10 @@ namespace PartiAppen
         /// </summary>
         public void Update()
         {
-            UpdateMouse(MenuManager.MousePosition);
+            previousMouseDown = currentMouseDown;
+            currentMouseDown = Mouse.GetState().LeftButton == ButtonState.Pressed;
+
+            UpdateMouse(Game1.camera.ScreenToWorld(MenuManager.MousePosition.ToVector2()).ToPoint());
         }
 
         // Update mouse collision with all buttons
@@ -170,12 +176,14 @@ namespace PartiAppen
                 button.IsHighlighted = button == selectedButton;
             }
 
+
             // if no button is selected, skip
             if (selectedButton == null) return; 
 
+
+
             // if mouse is down run the button´s action
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                selectedButton.Action.Invoke();
+            if (Menu.currentMouseDown == true && Menu.previousMouseDown == false) selectedButton.Action.Invoke();
         }
 
         // Draw

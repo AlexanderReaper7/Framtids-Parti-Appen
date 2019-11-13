@@ -15,6 +15,8 @@ namespace PartiAppen
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private MenuManager menuManager;
+        public static Camera2D camera;
+
 
         private Song song;
         private SoundPlayer player;
@@ -54,6 +56,8 @@ namespace PartiAppen
             graphics.PreferredBackBufferWidth = windowWidth;
             // Move window to the center
             Window.Position = new Point((displayWidth / 2) - (windowWidth / 2), 0);
+
+            camera = new Camera2D(this) {Origin = Vector2.Zero};
 
             // Apply changes
             graphics.ApplyChanges();
@@ -110,7 +114,7 @@ namespace PartiAppen
         {
             GraphicsDevice.Clear(Color.White);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null,null,null,null, camera.GetViewMatrix());
 
             menuManager.Draw(spriteBatch);
 
