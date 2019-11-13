@@ -20,6 +20,8 @@ namespace PartiAppen
             Press
         }
 
+        public static Menues state = Menues.Menu;
+
         // Create menu pages
         Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
 
@@ -50,7 +52,9 @@ namespace PartiAppen
             #endregion
 
             #region Program
-            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, mainRec, "Meny", mainPad, b, h));
+            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Meny", mainPad, b, h));
+            menu.Pages[(int)Menues.Program].AddButton_Single(new Button(menuFont, new Rectangle(100, 200, 100, 100), "Lol", mainPad, b, h));
+
             #endregion
 
             #region OmOss
@@ -62,36 +66,62 @@ namespace PartiAppen
 
         public void Update()
         {
-
-
-
+            
 
             menu.Update();
 
-            #region Menu
-
-            // switch menu when left mouse button is pressed
-            if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
+            switch (state)
             {
-                for (int i = 0; i < Enum.GetNames(typeof(Menues)).Length; i++)
-                {
-                    // Check if player select first button in main menu (play)
-                    if (menu.State(0, i))
+                case Menues.Menu:
+                    // switch menu when left mouse button is pressed
+                    if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
                     {
-                        // Change page to Program screen
-                        menu.PageSelection = i+1;
+                        for (int i = 0; i < Enum.GetNames(typeof(Menues)).Length; i++)
+                        {
+                            // Check if player select first button in main menu (play)
+                            if (menu.State(0, i))
+                            {
+                                // Change page to selected screen
+                                menu.PageSelection = i + 1;
+                            }
+
+                        }
+
+
+                        // Make single activation press reset
+                        mouseNotPressed = false;
                     }
+                    break;
+                case Menues.Program:
+                    // switch menu when left mouse button is pressed
+                    if (mouseNotPressed && MouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        if (menu.State(1, 0))
+                        {
+                            // Change page to Menu screen
+                            menu.PageSelection = 0;
+                        }
 
-                }
 
-                // Make single activation press reset
-                mouseNotPressed = false;
+
+                        // Make single activation press reset
+                        mouseNotPressed = false;
+                    }
+                    break;
+                case Menues.OmOss:
+                    break;
+                case Menues.Press:
+                    break;
             }
+            
 
-            #endregion
+            
+        
+
+            
 
 
-            mouseNotPressed = MouseState.LeftButton != ButtonState.Pressed;
+            mouseNotPressed = MouseState.LeftButton == ButtonState.Released;
         }
 
         public void Draw(SpriteBatch spriteBatch)
