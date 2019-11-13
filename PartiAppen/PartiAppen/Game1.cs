@@ -26,7 +26,28 @@ namespace PartiAppen
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Set to borderless window
+            Window.IsBorderless = true;
+            // Show mouse
+            IsMouseVisible = true;
+            // Enable multisampling
+            graphics.PreferMultiSampling = true;
+
+            // Window size
+            int windowHeight = 1080;
+            int windowWidth = 720;
+            // Display size
+            int displayWidth = graphics.GraphicsDevice.DisplayMode.Width;
+            int displayHeight = graphics.GraphicsDevice.DisplayMode.Height;
+
+            // Set window size
+            graphics.PreferredBackBufferHeight = windowHeight;
+            graphics.PreferredBackBufferWidth = windowWidth;
+            // Move window to the center
+            Window.Position = new Point((displayWidth / 2) - (windowWidth / 2), 0);
+
+            // Apply changes
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -75,7 +96,6 @@ namespace PartiAppen
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
