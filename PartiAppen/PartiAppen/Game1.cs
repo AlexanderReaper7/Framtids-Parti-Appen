@@ -102,7 +102,11 @@ namespace PartiAppen
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+
             menuManager.Draw(spriteBatch);
+
+            spriteBatch. End();
 
             base.Draw(gameTime);
         }

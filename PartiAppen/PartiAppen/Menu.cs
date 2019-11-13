@@ -91,11 +91,6 @@ namespace PartiAppen
         }
         */
 
-        // Update mouse collision with all buttons
-        public void UpdateMouse(Rectangle mousePointer)
-        {
-            Pages[PageSelection].UpdateMouse(mousePointer);
-        }
 
         // Draw the current selected page
         public void Draw(SpriteBatch spriteBatch)
