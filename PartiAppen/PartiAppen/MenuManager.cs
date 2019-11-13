@@ -99,6 +99,7 @@ namespace PartiAppen
             // Buttons for shortcut
             menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Vad tycker vi om X?", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
 
+            #region Text
 
             // Klimat
             menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Klimat", Color.Black);
@@ -130,33 +131,62 @@ namespace PartiAppen
 
 
             // Skolan
-            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Skolan", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 610), false, "Skolan", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Skolan är verktyget som formar samhället, detta ska våra stadgar reflektera genom att fortsätta erbjuda gratis skolgång och uppmuntra till en högre utbildning på högskole- eller universitetsnivå. Detta är en viktig pelare i demokratin, en välutbildad befolkning fattar bättre beslut.", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 660), false,
+                "Skolan är verktyget som formar samhället, detta ska våra stadgar " + System.Environment.NewLine
+                + "reflektera genom att fortsätta erbjuda gratis skolgång och uppmuntra " + System.Environment.NewLine
+                + "till en högre utbildning på högskole- eller universitetsnivå. " + System.Environment.NewLine
+                + "Detta är en viktig pelare i demokratin, en välutbildad " + System.Environment.NewLine
+                + "befolkning fattar bättre beslut.", Color.Black);
             // sub Friskolan
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Friskolan", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 820), false, "Friskolan", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Vi som parti är för friskolor för det skapar konkurrens vilket leder till bättre tjänster. Staten ska dock styra kunskapskraven samt leda inspektioner av skolorna för att säkerställa att friskolorna uppnår kraven som sätts på dem.", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 860), false,
+                "Vi som parti är för friskolor för det skapar konkurrens vilket leder " + System.Environment.NewLine
+                + "till bättre tjänster. Staten ska dock styra kunskapskraven samt " + System.Environment.NewLine
+                + "leda inspektioner av skolorna för att säkerställa att " + System.Environment.NewLine
+                + "friskolorna uppnår kraven som sätts på dem.", Color.Black);
             // sub Lärarbrist
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Lärarbrist", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 1000), false, "Lärarbrist", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Läraryrket har under lång tid förlorat mer och mer status på grund av lägre löner och lägre krav för att människor utan lärarutbildning ska kunna få yrket. Detta har lett till att fler och fler utbildar sig till andra yrken vilket har lett till en brist på 60,000 lärare. Till att börja med vill vi öka lärarlöner så att fler ska vilja få jobbet för att låg lön är en motivation mot att inte bli lärare. Ett annat problem för lärare är alla jobb vid sidan av undervisningen dem behöver göra. Vi vill fokusera på att anställa människor som kan göra dem jobben så lärarna inte behöver det.", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 1040), false,
+                "Läraryrket har under lång tid förlorat mer och mer status på grund " + System.Environment.NewLine
+                + "av lägre löner och lägre krav för att människor utan lärarutbildning ska " + System.Environment.NewLine
+                + "kunna få yrket. Detta har lett till att fler och fler utbildar sig till " + System.Environment.NewLine
+                + "andra yrken vilket har lett till en brist på 60,000 lärare. " + System.Environment.NewLine
+                + "Till att börja med vill vi öka lärarlöner så att fler ska " + System.Environment.NewLine
+                + "vilja få jobbet för att låg lön är en motivation mot att inte bli lärare. " + System.Environment.NewLine
+                + "Ett annat problem för lärare är alla jobb vid sidan av " + System.Environment.NewLine
+                + "undervisningen dem behöver göra. Vi vill fokusera på att " + System.Environment.NewLine
+                + "anställa människor som kan göra dem jobben så lärarna " + System.Environment.NewLine
+                + "inte behöver det.", Color.Black);
 
             // Ekonomi
-            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 0), false, "Ekonomi", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(menuFont, new Vector2(20, yOffSet + 1340), false, "Ekonomi", Color.Black);
             // sub Skatt
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Skatt", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 1400), false, "Skatt", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Det nuvarande systemet har visat att fungera. Vi tycker att skatten skall vara balanserad som vi anser att den är just nu. Därmed vill vi behålla skattesystemet och fokusera på att finjustera våra resurstillgångar med att investera dem på ett korrekt sätt.", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 1440), false,
+                "Det nuvarande systemet har visat att fungera. Vi tycker att skatten skall " + System.Environment.NewLine
+                + "vara balanserad som vi anser att den är just nu. " + System.Environment.NewLine
+                + "Därmed vill vi behålla skattesystemet och fokusera på att finjustera " + System.Environment.NewLine
+                + "våra resurstillgångar med att investera dem på ett korrekt sätt.", Color.Black);
             // sub Bidrag
-            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 0), false, "Bidrag", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(subFont, new Vector2(20, yOffSet + 1580), false, "Bidrag", Color.Black);
 
-            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false,
-                "Vi tror på forskning och därför vill vi ge större summa pengar till alla Sveriges fantastiska universitet. Vi skall lägga ytterligare 20 miljarder kronor på forskningsmedel och stöd för universitet. Bidragen kommer vara mer inriktad mot energiforskning. Genom dessa bidrag så skall vi uppfylla vår profilfråga!", Color.Black);
+            menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 1620), false,
+                "Vi tror på forskning och därför vill vi ge större summa pengar till " + System.Environment.NewLine
+                + "alla Sveriges fantastiska universitet. Vi skall lägga ytterligare " + System.Environment.NewLine
+                + "20 miljarder kronor på forskningsmedel och stöd för universitet. " + System.Environment.NewLine
+                + "Bidragen kommer vara mer inriktad mot energiforskning. Genom dessa " + System.Environment.NewLine
+                + "bidrag så skall vi uppfylla vår profilfråga!", Color.Black);
+
+
+            #endregion
+
+            menu.Pages[(int)Menues.Program].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(720/2-45, yOffSet + 1800), new Point(80)), logoBlue, logoYellow, () => SetMenuState(Menues.Menu)));
+
 
             #endregion
 
