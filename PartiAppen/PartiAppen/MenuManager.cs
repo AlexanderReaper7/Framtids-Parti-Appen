@@ -41,6 +41,21 @@ namespace PartiAppen
             // Fonts
             menuFont = Content.Load<SpriteFont>(@"Fonts/Main");
 
+
+            // Menu
+            menu.Pages[0].AddButtonList_Single(menuFont, new Vector2(60, 240), 100f, new[] { "Vårt program", "Vår historia", "Våra politiker", "Om oss", "Press", "Kontakt" });
+
+            // Program
+
+            // Historia
+
+            // Politiker
+
+            // Om Oss
+
+            // Press
+
+            // Kontakt
         }
 
         public void Update()
@@ -51,6 +66,7 @@ namespace PartiAppen
         public void Draw(SpriteBatch spriteBatch)
         {
 
+            menu.Draw(spriteBatch);
         }
     }
 }
