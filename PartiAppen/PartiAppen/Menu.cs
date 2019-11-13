@@ -100,6 +100,7 @@ namespace PartiAppen
         public float BackgroundTransparency;
         // Images
         public List<Image> Images = new List<Image>();
+        public List<AdvancedImage> AdvancedImages = new List<AdvancedImage>();
         // Variable that handles Texts
         public List<Line> Text = new List<Line>();
         // Variable that handles buttons
@@ -107,16 +108,16 @@ namespace PartiAppen
         //
         // A selection variable for buttons
 
-        // Constructor
-        public Page()
-        {
-        }
-
         // Method for adding a background to a page, insert texture and it's transparency value (in %)
         public void AddBackground(Texture2D texture, float transparency)
         {
             Background = texture;
             BackgroundTransparency = transparency;
+        }
+
+        public void AddAdvancedImage(params AdvancedImage[] image)
+        {
+            AdvancedImages.AddRange(image);
         }
 
         public void AddImage(params Image[] image)
@@ -201,6 +202,11 @@ namespace PartiAppen
                 image.Draw(spriteBatch);
             }
 
+            foreach (AdvancedImage advancedImage in AdvancedImages)
+            {
+                advancedImage.Draw(spriteBatch);
+            }
+
             // Draw buttons
             foreach (IButton button in Buttons)
             {
@@ -215,6 +221,33 @@ namespace PartiAppen
         }
 
     }
+
+    /// <summary>
+    /// Image but with rotation and origin
+    /// </summary>
+    public class AdvancedImage
+    {
+        private Texture2D texture;
+        private Rectangle destinationRectangle;
+        public Color tint;
+        public float rotation;
+        private Vector2 origin;
+
+        public AdvancedImage(Texture2D texture, Rectangle destinationRectangle, Color tint, float rotation, Vector2 origin)
+        {
+            this.texture = texture;
+            this.destinationRectangle = destinationRectangle;
+            this.tint = tint;
+            this.rotation = rotation;
+            this.origin = origin;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, destinationRectangle, null, tint, rotation,origin,SpriteEffects.None, 1f);
+        }
+    }
+
 
     public class Image
     {

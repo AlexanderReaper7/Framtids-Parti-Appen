@@ -55,7 +55,7 @@ namespace PartiAppen
             Rectangle logoRect = new Rectangle(720 / 2 - (480 / 2), 20, 480, 480);
             Vector2 padding = new Vector2(-20);
             Texture2D logo = content.Load<Texture2D>(@"Images/logo");
-
+            Texture2D circle = content.Load<Texture2D>(@"Images/loadingcircledone");
             // BackButton is in all pages but menu
             #region BackButton
 
@@ -74,6 +74,10 @@ namespace PartiAppen
             #region Menu
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
+            // circle around logo
+            int circleSize = 590;
+            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(logoRect.Location.X * 1.5f), (int)(logoRect.Location.Y * 1.5f)), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize /2f)));
+
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt program", "Om oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
             
@@ -96,9 +100,6 @@ namespace PartiAppen
 
             //menu.Pages[(int)Menues.Program].AddText(textFont, new Vector2(20, yOffSet + 0), false, "", Color.Black);
             
-            // Buttons for shortcut
-            menu.Pages[(int)Menues.Program].AddButton(new Button(menuFont, new Rectangle(100, 100, 100, 100), "Vad tycker vi om X?", padding, backColor, highLightColor, () => SetMenuState(Menues.Menu)));
-
             #region Text
 
             // Klimat
@@ -200,7 +201,8 @@ namespace PartiAppen
         private void SetMenuState(Menues newState) { State = newState; }
 
         private int mouseScroll = 0, previousMouseScroll = 0;
-        private const float scrollMultiplier = 0.6f;
+        private const float scrollMultiplier = 0.6f, rotationMultiplier = 1f;
+        private DateTime prevTime = DateTime.Now, time = DateTime.Now;
 
         public void Update()
         {
@@ -209,15 +211,19 @@ namespace PartiAppen
             // Update mouse
             previousMouseScroll = mouseScroll;
             mouseScroll = Mouse.GetState().ScrollWheelValue;
-
             int deltaScroll = previousMouseScroll - mouseScroll;
-
+            // Update time
+            prevTime = time;
+            time = DateTime.Now;
+            float deltaTime = (float)(time - prevTime).TotalSeconds;
             // Menu specific logic
             switch (State)
             {
                 case Menues.Menu:
                     // reset camera
                     Game1.camera.Position = Vector2.Zero;
+                    menu.Pages[0].AdvancedImages[0].rotation += deltaTime * rotationMultiplier;
+                    
                     break;
                 case Menues.Program:
                     // move camera
