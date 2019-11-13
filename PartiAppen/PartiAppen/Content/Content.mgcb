@@ -13,6 +13,73 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/Main.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Main.spritefont
+
+#begin Fonts/Roboto-Black.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Black.ttf
+
+#begin Fonts/Roboto-BlackItalic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-BlackItalic.ttf
+
+#begin Fonts/Roboto-Bold.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Bold.ttf
+
+#begin Fonts/Roboto-BoldItalic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-BoldItalic.ttf
+
+#begin Fonts/Roboto-Italic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Italic.ttf
+
+#begin Fonts/Roboto-Light.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Light.ttf
+
+#begin Fonts/Roboto-LightItalic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-LightItalic.ttf
+
+#begin Fonts/Roboto-Medium.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Medium.ttf
+
+#begin Fonts/Roboto-MediumItalic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-MediumItalic.ttf
+
+#begin Fonts/Roboto-Regular.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Regular.ttf
+
+#begin Fonts/Roboto-Thin.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-Thin.ttf
+
+#begin Fonts/Roboto-ThinItalic.ttf
+/importer:
+/processor:
+/build:Fonts/Roboto-ThinItalic.ttf
+
 #begin Images/1x/baseline_menu_black_48dp.png
 /importer:TextureImporter
 /processor:TextureProcessor
