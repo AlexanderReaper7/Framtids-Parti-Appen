@@ -65,6 +65,8 @@ namespace PartiAppen
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            menuManager = new MenuManager();
+
             menuManager.LoadMenu(Content);
         }
 
