@@ -59,14 +59,14 @@ namespace PartiAppen
             // BackButton is in all pages but menu
             #region BackButton
 
-            Texture2D backArrowBlack = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_black_48dp");
-            Texture2D backArrowWhite = content.Load<Texture2D>(@"Images/1x/baseline_arrow_back_white_48dp");
+            Texture2D backArrowBlack = content.Load<Texture2D>(@"Images/2x/baseline_arrow_back_black_48dp");
+            Texture2D backArrowWhite = content.Load<Texture2D>(@"Images/2x/baseline_arrow_back_white_48dp");
 
 
             for (int i = 1; i < MenuesAmount; i++) // skip first page ( menu )
             {
                 // Icon TODO: change rectangle
-                menu.Pages[i].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(30), new Point(80)),logoBlue,logoYellow , () => SetMenuState(Menues.Menu)));
+                menu.Pages[i].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(20, 20), new Point(80)),logoBlue,logoYellow , () => SetMenuState(Menues.Menu)));
             }
 
             #endregion
