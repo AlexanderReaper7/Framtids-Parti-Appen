@@ -81,8 +81,8 @@ namespace PartiAppen
             // Logo
             menu.Pages[(int)Menues.Menu].AddImage(new Image(logo, logoRect));
             // circle around logo
-            int circleSize = 590;
-            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(logoRect.Location.X * 1.5f), (int)(logoRect.Location.Y * 1.5f)), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize /2f)));
+            int circleSize = (circle.Height + circle.Width)/2;
+            menu.Pages[(int)Menues.Menu].AdvancedImages.Add(new AdvancedImage(circle, new Rectangle(new Point((int)(720/2), (int)((logoRect.Location.Y + logoRect.Height)/2) + 0), new Point(circleSize)), logoBlue, 0f, new Vector2(circleSize/2)));
 
             // Buttons
             menu.Pages[(int)Menues.Menu].AddButtonList(menuFont, mainRec, 80f, new[] { "Vårt Program", "Om Oss", "Press" }, padding, logoBlue, logoYellow, new Action[] {() => SetMenuState(Menues.Program), () => SetMenuState(Menues.OmOss), () => SetMenuState(Menues.Press)});
