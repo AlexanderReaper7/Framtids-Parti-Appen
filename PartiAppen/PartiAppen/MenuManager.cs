@@ -35,6 +35,9 @@ namespace PartiAppen
 
         public int MenuesAmount => Enum.GetNames(typeof(Menues)).Length;
 
+        // A variable for resetting the scroll
+        int scrollReturn;
+
         // Create menu pages
         Menu menu = new Menu(Enum.GetNames(typeof(Menues)).Length);
 
@@ -47,6 +50,8 @@ namespace PartiAppen
             SpriteFont titleFont = content.Load<SpriteFont>(@"Fonts/Title");
             SpriteFont subFont = content.Load<SpriteFont>(@"Fonts/Sub");
             SpriteFont textFont = content.Load<SpriteFont>(@"Fonts/Text");
+            SpriteFont smallFont = content.Load<SpriteFont>(@"Fonts/Small");
+
 
             // Color theme
             Color primary = new Color(3,169,244), primaryLight = new Color(103,218,255), primaryDark = new Color(0,122,193);
@@ -197,6 +202,8 @@ namespace PartiAppen
 
             #endregion
 
+            menu.Pages[(int)Menues.Program].AddText(titleFont, new Vector2(720/2, -100), true, "*DAB*", Color.Black);
+
             menu.Pages[(int)Menues.Program].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(720/2-45, yOffSet + 1800), new Point(80)), logoBlue, logoYellow, () => SetMenuState(Menues.Menu)));
 
 
@@ -230,12 +237,23 @@ namespace PartiAppen
                 + "Anton Gunnarsson & " + System.Environment.NewLine
                 + "Arvid Rimmerfors", Color.Black);
 
-            menu.Pages[(int)Menues.OmOss].AddImageButton(new ImageButton(backArrowWhite, new Rectangle(new Point(720 / 2 - 45, 920), new Point(80)), logoBlue, logoYellow, () => SetMenuState(Menues.Menu)));
-
 
             #endregion
 
             #region Press
+            menu.Pages[(int)Menues.Press].AddText(titleFont, new Vector2(720 / 2, 80), true, "Press", Color.Black);
+
+            menu.Pages[(int)Menues.Press].AddText(subFont, new Vector2(720 / 2, 200), true, "Musik", Color.Black);
+            menu.Pages[(int)Menues.Press].AddText(textFont, new Vector2(720 / 2, 240), true, "shorturl.at/foyVX", Color.Black);
+
+
+            menu.Pages[(int)Menues.Press].AddText(subFont, new Vector2(720 / 2, 340), true, "Logo", Color.Black);
+            menu.Pages[(int)Menues.Press].AddText(textFont, new Vector2(720 / 2, 380), true, "shorturl.at/lnxKR", Color.Black);
+
+
+            menu.Pages[(int)Menues.Press].AddText(smallFont, new Vector2(5, 1065), false, "*DAB*", Color.Black);
+
+
             #endregion
         }
 
@@ -268,7 +286,14 @@ namespace PartiAppen
                     break;
                 case Menues.Program:
                     // move camera
-                    Game1.camera.Position = new Vector2(Game1.camera.Position.X, Game1.camera.Position.Y + (deltaScroll * scrollMultiplier));
+                    if (Game1.camera.Position.Y < -100)
+                    {
+                        scrollReturn++;
+                    }
+                    else if (Game1.camera.Position.Y < 0)
+                        scrollReturn = 2;
+                    else scrollReturn = 0;
+                    Game1.camera.Position = new Vector2(Game1.camera.Position.X, MathHelper.Clamp(Game1.camera.Position.Y + scrollReturn + (deltaScroll * scrollMultiplier), -200, 1000) );
                     break;
                 case Menues.OmOss:
                     // reset camera
